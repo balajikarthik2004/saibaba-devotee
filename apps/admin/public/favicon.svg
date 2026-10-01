@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Shree Saibaba">
+  <rect width="64" height="64" rx="14" fill="#fff6ea"/>
+  <g stroke="#dd8420" stroke-width="3" stroke-linecap="round">
+    <path d="M32 6v7"/><path d="M14 12l5 5"/><path d="M50 12l-5 5"/><path d="M6 27h7"/><path d="M58 27h-7"/>
+  </g>
+  <path d="M19 27a13 13 0 0 1 26 0z" fill="#f2ab21"/>
+  <path d="M28 25c0-5 4-7 4-11 3 3 4 6 4 9 0 3-2 4-4 4s-4-1-4-2z" fill="#b3600a"/>
+  <path d="M10 38h44c0 9-8 16-22 16S10 47 10 38z" fill="#9a4a05"/>
+  <path d="M10 38h44" stroke="#dd8420" stroke-width="2"/>
+</svg>

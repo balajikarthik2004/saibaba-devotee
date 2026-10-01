@@ -1,0 +1,521 @@
+/* Noto Serif Tibetan sets figures, matching the devotee portal. It has to lead the
+   file — CSS requires @import before any other rule — and it is the console's only
+   third-party request. Every other face here is self-hosted. */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Tibetan:wght@400..700&display=swap');
+@import 'tailwindcss';
+
+/* ================================================================
+   Shree Saibaba — Operations Console · design tokens
+
+   The palette and the type are the devotee portal's, value for
+   value. Both halves are one product: a devotee who gives on the
+   portal and a volunteer who reconciles that gift here should not be
+   looking at two different brands. Everything shared with
+   `apps/devotee/src/index.css` is copied from it rather than
+   approximated — if a token moves there, move it here.
+
+   Four neutrals have no counterpart in the portal, because a
+   marketing page never needed them: `ink-soft` and `faint`, the two
+   quieter steps a dense table row needs below `ink`, and `hairline`
+   and `line-soft`, the outer edge of a card versus the rule between
+   its rows. They are mixed from the portal's own ink / muted / line
+   rather than invented, so they stay in the same family.
+
+   What is deliberately not copied is the portal's decoration: the
+   radial saffron washes, the gradient down the sidebar, the blur and
+   the glow behind the rail. Those are a welcome page's manners. This
+   is a console read for hours at a stretch — same colours, held
+   still.
+   ================================================================ */
+
+/* Marcellus — an inscriptional roman, and the portal's heading face.
+   Self-hosted (14 KB, one weight) so it costs no third-party request. */
+@font-face {
+  font-family: 'Marcellus';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/marcellus-400.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Plus Jakarta Sans — now the whole interface, headings included. A humanist
+   sans with a tall x-height and open counters, legible at the 12–14px this
+   console lives at. One variable file (400–800 in 27 KB), self-hosted, so no
+   third-party request and no CLS. latin-ext is a second face the browser
+   fetches only if a devotee's name actually needs it. */
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/jakarta-var-latin.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/jakarta-var-latin-ext.woff2') format('woff2');
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
+
+@theme {
+  /* ------------------------------------------------------------- colour */
+
+  /* ---- Copied from the devotee portal. Keep in sync. ---------------- */
+
+  /* Deep saffron — primary. A calm burnt-saffron ramp: white text on brand-600 is
+     about 6.4:1 and on brand-500 about 4.6:1, so filled buttons and chips clear AA.
+     Rationed as before: primary buttons, the active nav row, destructive
+     confirmation, and a negative figure. */
+  --color-brand-50: #fff7ed;
+  --color-brand-100: #ffedd5;
+  --color-brand-200: #fed7aa;
+  --color-brand-300: #fdba74;
+  --color-brand-400: #fb923c;
+  --color-brand-500: #ea580c;
+  --color-brand-600: #c2410c;
+  --color-brand-700: #9a3412;
+  --color-brand-800: #7c2d12;
+  --color-brand-900: #431407;
+
+  /* Marigold saffron — the temple's welcome colour. */
+  --color-saffron-100: #fefce8;
+  --color-saffron-200: #fef08a;
+  --color-saffron-300: #fde047;
+  --color-saffron-400: #facc15;
+  --color-saffron-500: #eab308;
+  --color-saffron-600: #ca8a04;
+
+  /* Brass lamp gold */
+  --color-gold-400: #eab308;
+  --color-gold-500: #ca8a04;
+  --color-gold-600: #a16207;
+
+  /* Tulsi green — achieved / success */
+  --color-leaf-400: #4a8a6e;
+  --color-leaf-500: #2c6b50;
+  --color-leaf-600: #1c5040;
+
+  --color-ink: #2b1a11;
+  --color-muted: #6f6157;
+  --color-line: #eedfd3;
+
+  /* Paper, not white — and the rail a shade deeper again, so the console reads
+     as two surfaces: a sand-coloured sidebar and the page it opens onto. */
+  --color-bg: #faf7f2;
+  --color-card: #ffffff;
+  --color-tint: #f5ede4;
+  --color-rail: #ede1d5;
+
+  /* ---- Console-only, mixed from the four above. --------------------- */
+
+  /* The two steps between `ink` and `muted` that a dense row needs and a
+     marketing page does not: `ink-soft` for the supporting half of a pair,
+     `faint` for furniture — a disabled control, an inactive sort arrow. Both
+     sit on the line from `ink` to `muted` and past it, so a table set in all
+     four still reads as one colour at four volumes. */
+  --color-ink-soft: #4c3d32;
+  --color-faint: #93857a;
+
+  /* Two more hairline weights either side of the portal's `line`. `hairline`
+     draws the outer edge of a card or table — the boundary between surfaces,
+     which has to hold against both white and cream, and at `line` strength a
+     white card's top edge dissolved into the page. `line-soft` divides rows
+     inside one table, where a full-strength rule builds a cage. */
+  --color-hairline: #ddd0b8;
+  --color-line-soft: #f5efe3;
+
+  /* ------------------------------------------------------------ typography */
+
+  --font-serif: 'Marcellus', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --font-sans:
+    'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* The portal's figure face. Falls back to Marcellus, which is the right
+     shape anyway if the Google request never lands. */
+  --font-number: 'Noto Serif Tibetan', var(--font-serif);
+
+  /* A nine-step scale — 11 · 12 · 13 · 14 · 15 · 18 · 21 · 26 · 32.
+
+     Each step carries its own leading and tracking, because the right value
+     for both is a function of size. An 11px uppercase label needs positive
+     tracking or the letters touch; a 32px figure needs negative tracking or it
+     falls apart into separate glyphs. Setting font-size alone — all an inline
+     `text-[Npx]` can do — leaves both decisions to a body rule written for
+     14px running text. */
+
+  --text-2xs: 11px;
+  --text-2xs--line-height: 1.3;
+  --text-2xs--letter-spacing: 0.02em;
+
+  --text-xs: 12px;
+  --text-xs--line-height: 1.45;
+  --text-xs--letter-spacing: 0.006em;
+
+  --text-sm: 13px;
+  --text-sm--line-height: 1.5;
+  --text-sm--letter-spacing: 0;
+
+  --text-base: 14px;
+  --text-base--line-height: 1.55;
+  --text-base--letter-spacing: -0.008em;
+
+  --text-md: 15px;
+  --text-md--line-height: 1.5;
+  --text-md--letter-spacing: -0.011em;
+
+  --text-lg: 18px;
+  --text-lg--line-height: 1.35;
+  --text-lg--letter-spacing: -0.016em;
+
+  --text-xl: 21px;
+  --text-xl--line-height: 1.24;
+  --text-xl--letter-spacing: -0.02em;
+
+  --text-2xl: 26px;
+  --text-2xl--line-height: 1.14;
+  --text-2xl--letter-spacing: -0.023em;
+
+  --text-3xl: 32px;
+  --text-3xl--line-height: 1.04;
+  --text-3xl--letter-spacing: -0.028em;
+
+  /* Radii — a console is a tool, and tools have squarer corners than a
+     welcome page. */
+  --radius-sm: 5px;
+  --radius: 7px;
+  --radius-lg: 10px;
+
+  /* Shadows. Flatter than before by design: on a flat ground, structure comes
+     from the hairline, and the shadow only has to say "this sits on top". The
+     two loudest steps are reserved for things that genuinely float — popovers,
+     dialogs — and a card never gets more than `sm`. */
+  --shadow-xs: 0 1px 1px rgba(41, 33, 27, 0.04);
+  --shadow-sm: 0 1px 2px rgba(41, 33, 27, 0.05);
+  --shadow: 0 1px 2px rgba(41, 33, 27, 0.04), 0 4px 10px -3px rgba(41, 33, 27, 0.06);
+  --shadow-md: 0 2px 4px rgba(41, 33, 27, 0.05), 0 10px 22px -6px rgba(41, 33, 27, 0.09);
+  --shadow-lg: 0 4px 10px rgba(41, 33, 27, 0.06), 0 22px 48px -12px rgba(41, 33, 27, 0.16);
+}
+
+/* Tailwind v4 defaults borders to currentColor; keep the warm hairline instead. */
+@layer base {
+  *,
+  ::after,
+  ::before {
+    border-color: var(--color-line);
+  }
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.55;
+  letter-spacing: -0.008em;
+  font-optical-sizing: auto;
+  /* Jakarta ships real kern pairs, and without them capital-plus-round
+     pairings — "To", "Ye", "Wa" — sit visibly loose in exactly the proper
+     names that fill every table in this console. */
+  font-kerning: normal;
+  font-feature-settings:
+    'kern' 1,
+    'liga' 1,
+    'calt' 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Left ragged, "Overdue prasadam shipments" breaks after one word and leaves an
+   orphan on line two. `balance` evens the lines of any heading short enough for
+   the browser to solve; `pretty` keeps a paragraph off a one-word last line. */
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+
+/* Marcellus is the heading face again, as it is in the portal — page titles,
+   card titles, dialog titles. It had been cut back to the wordmark alone in the
+   previous pass; matching the portal's voice means putting it back, because a
+   volunteer moving between the two products should not feel them change
+   typeface at the door.
+
+   Tracking matches the portal's `.font-serif` exactly. */
+.font-serif {
+  font-family: var(--font-serif);
+  letter-spacing: -0.005em;
+}
+
+/* The wordmark is the same face at the same weight; it keeps its own class so
+   the mark's tracking can be tuned without touching every heading. */
+.wordmark {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: 0.002em;
+}
+
+/* Figures line up only if they share a width. Every table cell, stat tile and
+   money column gets tabular figures and a slashed zero — in a donation ledger,
+   telling 0 from O is not a stylistic preference. */
+th,
+td,
+.tabular-nums,
+.num {
+  font-variant-numeric: tabular-nums slashed-zero;
+  font-feature-settings:
+    'tnum' 1,
+    'zero' 1;
+}
+
+/* On the portal's figure face, and where it stops.
+
+   The portal sets `--font-number` on `.tabular-nums, th, td` together. That rule
+   does not survive being copied into this console, for two reasons.
+
+   Names. Cells here are mostly people — "Kishore Bhaskaran" set in a Tibetan
+   serif is not the parity anyone asked for, and the donor column is the reason
+   the ledger exists.
+
+   Metrics. Noto Serif Tibetan carries the ascent and descent a stacked Tibetan
+   cluster needs, so its line box measures 39px where the sans measures 18px at
+   the same size. Dropped into a table cell that is `align-middle`, every amount
+   floated about 10px above the row it belonged to. Forcing `line-height: 1`
+   pulls the box back to 14px but still leaves the digits ~3px proud of the
+   names beside them, and a money column that does not sit on its own row is a
+   worse outcome than a font that does not match.
+
+   So the face carries the display figures — the tile numbers, which is where a
+   devotee and a volunteer are actually looking at the same number — and table
+   cells keep the interface sans with the tabular metrics set above. */
+
+/* The one figure a stat card exists to show, in the portal's figure face — this
+   is the number a devotee sees on their giving page and a volunteer sees on the
+   dashboard, and it should be the same number in the same shape.
+
+   Size lives here rather than at each call site, so every tile in the console
+   agrees on how big its headline is — they had drifted to 27, 28 and 30px on
+   three different screens. */
+.stat-figure {
+  font-family: var(--font-number);
+  font-size: var(--text-3xl);
+  font-variant-numeric: tabular-nums slashed-zero;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--color-ink);
+}
+
+/* The eyebrow voice — stat labels, table headers, sidebar group headings.
+   Defined once so all three stay the same size and colour; they had been
+   drifting apart by half a pixel a screen.
+
+   Set in `muted`, which is what the portal uses, and not in `faint`. On the new
+   cream ground `faint` measures about 3.1:1 — under the 4.5:1 an 11px label
+   needs, and these labels are the only thing naming the figure underneath them.
+   `faint` is for furniture that carries no information: an inactive sort arrow,
+   a placeholder, a disabled icon. */
+.eyebrow {
+  font-size: var(--text-2xs);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* ---------------------------------------------------------------- app shell */
+
+/* Flat. The page ground used to carry three radial gradients — marigold from
+   the top right, kumkum from the bottom left, brass through the middle — and
+   fixed attachment kept them pinned to the viewport, so the colour under a
+   table changed as you scrolled past it. */
+.app-shell {
+  background-color: var(--color-bg);
+}
+
+/* The rail, copied from the devotee portal: saffron light entering at the top,
+   kumkum pooling at the foot, and a warm scrim over both so the whole column
+   settles rather than glows. The page ground stays flat — the decoration is
+   scoped to the one surface that asked for it.
+
+   The portal also sets `backdrop-filter: blur(24px)` here. That is dropped, and
+   deliberately: the background-color underneath is fully opaque, so there is no
+   backdrop left to blur. All it bought was a compositing layer the height of the
+   viewport on every route. The rail looks identical without it. */
+.app-rail {
+  background-color: var(--color-bg);
+  background-image:
+    linear-gradient(180deg, rgba(253, 246, 235, 0.4) 0%, rgba(253, 246, 235, 0.9) 100%),
+    radial-gradient(circle at 50% 0%, rgba(242, 171, 33, 0.2), transparent 50%),
+    radial-gradient(circle at 50% 100%, rgba(179, 96, 10, 0.08), transparent 50%);
+  border-right: 1px solid var(--color-line);
+  box-shadow: 1px 0 24px rgba(242, 171, 33, 0.06);
+}
+
+/* Chrome that overlays scrolling content. Opaque, not glass.
+
+   The first cut was 88% with a blur behind it, and donor names were legibly
+   ghosting through the header of the very page whose job is to be read
+   accurately. Frosted chrome is a decoration, and this pass is removing
+   decorations; an ops console has nothing to gain from seeing a blurred
+   suggestion of row 40 behind its filter controls. */
+.app-chrome {
+  background-color: var(--color-bg);
+}
+
+/* ---------------------------------------------------------------- utilities */
+
+/* Cards that are really links or buttons. Lift on hover, settle on press —
+   enough to say "this is clickable" without animating the whole grid. */
+.card-interactive {
+  transition:
+    box-shadow 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+}
+.card-interactive:hover {
+  border-color: var(--color-gold-400);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+.card-interactive:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* A horizontally scrollable strip — the tab bar, a row of filter chips — that
+   must not show a track. These overflow on a narrow viewport and fit on a wide
+   one, and the console's own thin-scrollbar styling was painting a permanent
+   groove along the tab bar on Windows, where the track holds its space whether
+   or not there is anything to scroll. */
+.scroll-x-clean {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scroll-x-clean::-webkit-scrollbar {
+  display: none;
+}
+
+/* Keyboard focus, everywhere, in one declaration. Pointer users never see it;
+   anyone on a keyboard sees the same ring on every control in the console.
+
+   `outline` rather than a box-shadow ring: an offset outline needs no spacer
+   colour to match the surface behind it — the same declaration reads correctly
+   on the white card, the sand rail and the off-white page — and it leaves the
+   inset shadow that gives text inputs their depth intact. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--color-brand-100);
+  color: var(--color-brand-800);
+}
+
+/* ---------------------------------------------------------------- motion */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-fade-in {
+  animation: fade-in 160ms ease-out both;
+}
+
+/* The slow drift behind hero photography — barely perceptible, but it stops a
+   still image from feeling like a dead placeholder. */
+@keyframes slow-pan {
+  from {
+    transform: scale(1.06) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.13) translate3d(-1.2%, -1.2%, 0);
+  }
+}
+.animate-slow-pan {
+  animation: slow-pan 24s ease-in-out infinite alternate;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-slow-pan,
+  .animate-fade-in {
+    animation: none;
+  }
+  .card-interactive:hover {
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------- print */
+
+/* Print styling for receipt / AGM dialogs */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-area,
+  .print-area * {
+    visibility: visible;
+  }
+  .print-area {
+    position: absolute;
+    inset: 0;
+    padding: 24px;
+  }
+  .no-print {
+    display: none !important;
+  }
+  /* A sticky page header prints as a band stamped across the first page and
+     nothing on the rest. On paper there is no scrolling to stick to. */
+  .page-chrome {
+    position: static !important;
+  }
+}
+
+/* ---------------------------------------------------------------- scrollbars */
+
+/* Thin, warm scrollbars in dense admin tables. Firefox takes the standard
+   properties; WebKit still needs its own, and a default grey bar on a warm
+   table is the one detail that gives a console away as unfinished. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-line);
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-gold-400);
+}

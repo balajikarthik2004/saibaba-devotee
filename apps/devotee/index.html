@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#e08c0a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Saibaba" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+    <!-- Self-hosted fonts only; no third-party origins, so no preconnect. -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/jakarta-var-latin.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/marcellus-400.woff2" crossorigin />
+
+    <title>Shree Saibaba · Temples, aarti, darshan &amp; giving</title>
+    <meta
+      name="description"
+      content="Daily aartis, live darshan, the 9-Thursday vrat, Sai Satcharitra parayan, teachings and giving for your Sai Baba temple."
+    />
+    <!-- Canonical is set at runtime per temple/page by useTempleSeo(); set the production origin
+         here (or via your host) when the domain is known:
+         <link rel="canonical" href="https://YOUR-DOMAIN/" /> -->
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Shree Saibaba" />
+    <meta property="og:title" content="Shree Saibaba · Temples, aarti, darshan &amp; giving" />
+    <meta
+      property="og:description"
+      content="Daily aartis, live darshan, the 9-Thursday vrat, Sai Satcharitra parayan, teachings and giving for your Sai Baba temple."
+    />
+    <meta property="og:image" content="/icons/icon-512.png" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Shree Saibaba" />
+    <meta
+      name="twitter:description"
+      content="Daily aartis, live darshan, the 9-Thursday vrat, parayan, teachings and giving."
+    />
+
+    <!-- JSON-LD template: replaced per temple (PlaceOfWorship) by useTempleSeo(). -->
+    <script type="application/ld+json" id="ld-temple">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Shree Saibaba",
+        "logo": "/icons/icon-512.png"
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>Shree Saibaba needs JavaScript to run. Please enable it to continue.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

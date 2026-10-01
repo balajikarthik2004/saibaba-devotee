@@ -1,0 +1,22 @@
+{
+  "name": "shree-saibaba-platform",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev": "npm run dev -w @saibaba/devotee",
+    "dev:devotee": "npm run dev -w @saibaba/devotee",
+    "dev:admin": "npm run dev -w @saibaba/admin",
+    "start": "npm run dev -w @saibaba/devotee",
+    "build": "npm run build -w @saibaba/devotee && npm run build -w @saibaba/admin",
+    "typecheck": "npm run typecheck -w @saibaba/core && tsc -b apps/devotee && tsc -b apps/admin",
+    "lint": "oxlint apps packages",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "oxlint": "^1.75.0",
+    "prettier": "^3.9.6",
+    "typescript": "~6.0.2"
+  }
+}

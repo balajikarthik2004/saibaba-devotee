@@ -1,0 +1,37 @@
+{
+  "name": "@saibaba/core",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc -p .",
+    "test:backend": "node src/backend/mappers.test.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./api": "./src/api.ts",
+    "./types": "./src/types.ts",
+    "./mock": "./src/mock/index.ts",
+    "./local": "./src/local.ts",
+    "./schedule": "./src/schedule.ts",
+    "./donor": "./src/donor.ts",
+    "./i18n": "./src/i18n.ts",
+    "./money": "./src/money.ts",
+    "./tenant": "./src/tenant.ts",
+    "./features": "./src/features/index.ts",
+    "./features/*": "./src/features/*/index.ts",
+    "./util": "./src/util.ts",
+    "./store/*": "./src/store/*.ts",
+    "./*": "./src/*.ts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.117.2",
+    "date-fns": "^4.4.0",
+    "jspdf": "^4.2.1",
+    "qrcode": "^1.5.4",
+    "zustand": "^5.0.15"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  }
+}

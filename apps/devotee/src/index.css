@@ -1,0 +1,383 @@
+@import 'tailwindcss';
+
+/* ================================================================
+   Shree Saibaba — design tokens
+
+   A calm saffron-and-ivory palette. Baba's message was simplicity, so
+   colour is used sparingly: warm ivory paper, marigold / deep saffron
+   for actions and accents, and a quiet indigo for emphasis and the
+   darker "evening sky" surfaces. Token names are kept stable across the
+   platform (brand / saffron / gold / leaf / sai) so every screen
+   follows the palette automatically.
+   ================================================================ */
+
+/* Marcellus — an inscriptional roman (OFL). Self-hosted, one weight, so the site
+   needs no third-party request and no CLS on first paint. */
+@font-face {
+  font-family: 'Marcellus';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/marcellus-400.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Plus Jakarta Sans — the reading face (OFL). One variable file, self-hosted.
+   latin-ext is a second face the browser fetches only if a name actually needs it. */
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/jakarta-var-latin.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/jakarta-var-latin-ext.woff2') format('woff2');
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
+
+@theme {
+  /* =========================================================================
+     Shree Saibaba Palette Synergy:
+     - Palette A: Traditional & Divine (Sacred Saffron #FF6F00, Gold #D4AF37, Velvet Crimson #B71C1C)
+     - Palette B: Peaceful & Meditative (Soft Ivory #FDFBF7, Cream #FFF9E6, Midnight Navy #1A2530)
+     ========================================================================= */
+
+  /* Primary: Sacred Saffron / Dhuni Flame / Bhagwa Kafni */
+  --color-brand-50: #fff7ed;
+  --color-brand-100: #ffedd5;
+  --color-brand-200: #fed7aa;
+  --color-brand-300: #fdba74;
+  --color-brand-400: #fb923c;
+  --color-brand-500: #ff6f00; /* Sacred Saffron #FF6F00 */
+  --color-brand-600: #e65100; /* Deep Dhuni Flame #E65100 */
+  --color-brand-700: #c2410c;
+  --color-brand-800: #9a3412;
+  --color-brand-900: #7c2d12;
+
+  /* Secondary: Divine Amber, Haldi & Spiritual Ochre */
+  --color-saffron-100: #fff9e6; /* Soft temple cream */
+  --color-saffron-200: #fef08a; /* Marigold petal */
+  --color-saffron-300: #fde047; /* Haldi yellow */
+  --color-saffron-400: #f5b041; /* Spiritual ochre #F5B041 */
+  --color-saffron-500: #ffa000; /* Warm amber #FFA000 */
+  --color-saffron-600: #ffb300; /* Deep divine amber #FFB300 */
+
+  /* Metallic Temple Gold & Altar Highlights */
+  --color-gold-400: #e8c96c;
+  --color-gold-500: #d4af37; /* Metallic Gold #D4AF37 */
+  --color-gold-600: #b89327;
+
+  /* Accent: Deep Temple Velvet Crimson & Maroon (#880E4F, #B71C1C) */
+  --color-crimson-400: #e11d48;
+  --color-crimson-500: #b71c1c; /* Temple Crimson #B71C1C */
+  --color-crimson-600: #880e4f; /* Velvet Maroon #880E4F */
+
+  /* Tulsi Sacred Healing Green (Neem & Bilva) */
+  --color-leaf-400: #4ade80;
+  --color-leaf-500: #16a34a;
+  --color-leaf-600: #15803d;
+
+  /* Neutral Dark: Deep Meditative Midnight Navy (#1A2530) */
+  --color-sai-50: #f8fafc;
+  --color-sai-100: #f1f5f9;
+  --color-sai-200: #e2e8f0;
+  --color-sai-300: #cbd5e1;
+  --color-sai-400: #94a3b8;
+  --color-sai-500: #64748b;
+  --color-sai-600: #334155;
+  --color-sai-700: #1e293b;
+  --color-sai-800: #1a2530; /* Deep Midnight Navy #1A2530 */
+  --color-sai-900: #0f172a;
+
+  /* Text & Surfaces: High-contrast Dark Charcoal on Pristine Ivory */
+  --color-ink: #212121;
+  --color-muted: #64748b;
+  --color-line: #efe6d5;
+  /* Palette B: Soft Ivory #FDFBF7 & Card Cream #FFF9E6 */
+  --color-bg: #fdfbf7;
+  --color-card: #ffffff;
+  --color-tint: #fff9e6;
+  --color-rail: #f7f1e4;
+
+  /* Typography */
+  --font-serif: 'Marcellus', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --font-sans:
+    'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-number: var(--font-sans);
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
+
+  /* Shadows — warm, never grey */
+  --shadow-sm: 0 1px 2px rgba(58, 38, 12, 0.05);
+  --shadow: 0 1px 2px rgba(58, 38, 12, 0.04), 0 6px 20px rgba(58, 38, 12, 0.07);
+  --shadow-lg: 0 12px 40px rgba(58, 38, 12, 0.14);
+}
+
+/* Tailwind v4 defaults borders to currentColor; keep the warm hairline instead. */
+@layer base {
+  *,
+  ::after,
+  ::before {
+    border-color: var(--color-line);
+  }
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  letter-spacing: -0.008em;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Visible keyboard focus everywhere. */
+:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 2px;
+}
+
+/* Figures in tables, stat tiles and money columns line up only if they share a width. */
+.tabular-nums,
+th,
+td {
+  font-family: var(--font-number);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* ---------------------------------------------------------------- app shell */
+
+/* A barely-there wash of saffron and indigo rather than a flat fill — the way
+   light falls through a doorway. Fixed attachment keeps it on the viewport. */
+.app-shell {
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(60rem 40rem at 100% 0%, rgba(244, 174, 34, 0.14), transparent 70%),
+    radial-gradient(50rem 50rem at 0% 100%, rgba(47, 61, 114, 0.06), transparent 70%),
+    radial-gradient(40rem 40rem at 50% 50%, rgba(255, 255, 255, 0.6), transparent 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.app-rail {
+  background-color: var(--color-bg);
+  background-image:
+    linear-gradient(180deg, rgba(255, 250, 240, 0.4) 0%, rgba(255, 250, 240, 0.9) 100%),
+    radial-gradient(circle at 50% 0%, rgba(244, 174, 34, 0.2), transparent 50%),
+    radial-gradient(circle at 50% 100%, rgba(47, 61, 114, 0.06), transparent 50%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-right: 1px solid var(--color-line);
+  box-shadow: 1px 0 24px rgba(244, 174, 34, 0.06);
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+  letter-spacing: -0.005em;
+}
+
+/* A hairline of saffron under section headings. */
+.rule-saffron::after {
+  content: '';
+  display: block;
+  width: 42px;
+  height: 2px;
+  margin-top: 10px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--color-saffron-400), var(--color-gold-500));
+}
+.rule-saffron.rule-center::after {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Route-change fade — subtle motion only */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-fade-in {
+  animation: fade-in 180ms ease-out both;
+}
+
+/* A slow drift for illustrated scenes — barely perceptible, keeps a still scene alive. */
+@keyframes slow-pan {
+  from {
+    transform: scale(1.06) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.13) translate3d(-1.2%, -1.2%, 0);
+  }
+}
+.animate-slow-pan {
+  animation: slow-pan 24s ease-in-out infinite alternate;
+}
+
+/* ---- Illustrated art motion (DeityArt / HeroBanner) ---- */
+@keyframes art-flicker {
+  0%,
+  100% {
+    transform: scale(1, 1) rotate(0deg);
+  }
+  30% {
+    transform: scale(0.96, 1.05) rotate(-1.5deg);
+  }
+  60% {
+    transform: scale(1.03, 0.97) rotate(1.2deg);
+  }
+}
+.art-flicker {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: art-flicker 2.6s ease-in-out infinite;
+}
+@keyframes art-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.art-spin {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: art-spin 140s linear infinite;
+}
+@keyframes art-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+.art-glow {
+  animation: art-glow 5s ease-in-out infinite;
+}
+@keyframes petal-fall {
+  from {
+    transform: translate3d(0, -12%, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  to {
+    transform: translate3d(var(--petal-dx, 40px), 520px, 0) rotate(260deg);
+    opacity: 0;
+  }
+}
+.petal {
+  position: absolute;
+  top: 0;
+  width: 10px;
+  height: 14px;
+  border-radius: 80% 0 80% 0;
+  background: var(--color-saffron-400);
+  opacity: 0;
+  animation: petal-fall 14s linear infinite;
+}
+
+/* 3D Sai Baba Centerpiece Animation */
+@keyframes sai3d-spin-enter {
+  0% {
+    transform: perspective(1200px) rotateY(-360deg) scale(0.6);
+    opacity: 0;
+    filter: brightness(0.6) drop-shadow(0 0 0 rgba(255, 179, 0, 0));
+  }
+  60% {
+    opacity: 1;
+    filter: brightness(1.2) drop-shadow(0 0 45px rgba(255, 179, 0, 0.75));
+  }
+  100% {
+    transform: perspective(1200px) rotateY(0deg) scale(1);
+    opacity: 1;
+    filter: brightness(1) drop-shadow(0 15px 35px rgba(15, 23, 42, 0.75));
+  }
+}
+
+@keyframes sai3d-divine-float {
+  0%, 100% {
+    transform: perspective(1200px) translateY(0px) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(1200px) translateY(-8px) rotateY(2.5deg);
+  }
+}
+
+.sai3d-enter {
+  animation: sai3d-spin-enter 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+.sai3d-float {
+  animation: sai3d-divine-float 6s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-slow-pan,
+  .animate-fade-in,
+  .art-flicker,
+  .art-spin,
+  .art-glow {
+    animation: none;
+  }
+  .petal {
+    display: none;
+  }
+}
+
+/* Print styling for receipt dialogs */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-area,
+  .print-area * {
+    visibility: visible;
+  }
+  .print-area {
+    position: absolute;
+    inset: 0;
+    padding: 24px;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Thin, warm scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
+}

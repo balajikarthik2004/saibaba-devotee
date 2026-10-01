@@ -1,0 +1,111 @@
+/* ================================================================
+   Indic-script font strategy — NO third-party requests (no Google Fonts hotlinking).
+
+   1. Each script gets a font-family stack of widely available system fonts
+      (Noto on Android/Linux/ChromeOS, Nirmala UI on Windows, Mangal / Shruti / Gautami /
+      Latha on older Windows, Kohinoor / Gujarati Sangam MN / Telugu Sangam MN / Tamil Sangam MN
+      on Apple). This alone renders every script correctly on current devices.
+   2. Optional self-hosted Noto Sans subsets: add the woff2 files to public/fonts/indic/ (see the
+      README there), then UNCOMMENT the url(...) line in the matching @font-face below. They are
+      commented out by default because a missing file on an SPA host is answered with index.html,
+      which the browser logs as a font decode error.
+   ================================================================ */
+
+@font-face {
+  font-family: 'Noto Sans Devanagari Local';
+  font-display: swap;
+  font-weight: 100 900;
+  src:
+    local('Noto Sans Devanagari')
+    /* , url('/fonts/indic/noto-sans-devanagari.woff2') format('woff2') */;
+  unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FF;
+}
+@font-face {
+  font-family: 'Noto Sans Gujarati Local';
+  font-display: swap;
+  font-weight: 100 900;
+  src:
+    local('Noto Sans Gujarati')
+    /* , url('/fonts/indic/noto-sans-gujarati.woff2') format('woff2') */;
+  unicode-range: U+0A80-0AFF, U+200C-200D, U+20B9, U+25CC, U+A830-A839;
+}
+@font-face {
+  font-family: 'Noto Sans Telugu Local';
+  font-display: swap;
+  font-weight: 100 900;
+  src:
+    local('Noto Sans Telugu')
+    /* , url('/fonts/indic/noto-sans-telugu.woff2') format('woff2') */;
+  unicode-range: U+0C00-0C7F, U+1CDA, U+200C-200D, U+25CC;
+}
+@font-face {
+  font-family: 'Noto Sans Tamil Local';
+  font-display: swap;
+  font-weight: 100 900;
+  src:
+    local('Noto Sans Tamil')
+    /* , url('/fonts/indic/noto-sans-tamil.woff2') format('woff2') */;
+  unicode-range: U+0B80-0BFF, U+1CDA, U+200C-200D, U+25CC, U+A830-A839;
+}
+
+:root {
+  --font-devanagari:
+    'Noto Sans Devanagari Local', 'Noto Sans Devanagari', 'Nirmala UI', 'Mangal', 'Kohinoor Devanagari',
+    'Devanagari Sangam MN', sans-serif;
+  --font-gujarati:
+    'Noto Sans Gujarati Local', 'Noto Sans Gujarati', 'Nirmala UI', 'Shruti', 'Gujarati Sangam MN',
+    sans-serif;
+  --font-telugu:
+    'Noto Sans Telugu Local', 'Noto Sans Telugu', 'Nirmala UI', 'Gautami', 'Kohinoor Telugu',
+    'Telugu Sangam MN', sans-serif;
+  --font-tamil:
+    'Noto Sans Tamil Local', 'Noto Sans Tamil', 'Nirmala UI', 'Latha', 'Kohinoor Tamil',
+    'Tamil Sangam MN', sans-serif;
+}
+
+/* Indic scripts need a little more line height than Latin for matras and stacked conjuncts. */
+html:lang(hi),
+html:lang(mr),
+html:lang(gu),
+html:lang(te),
+html:lang(ta) {
+  line-height: 1.75;
+}
+html:lang(hi) body,
+html:lang(mr) body {
+  font-family: var(--font-sans), var(--font-devanagari);
+  letter-spacing: 0; /* negative tracking breaks conjunct shapes */
+}
+html:lang(gu) body {
+  font-family: var(--font-sans), var(--font-gujarati);
+  letter-spacing: 0;
+}
+html:lang(te) body {
+  font-family: var(--font-sans), var(--font-telugu);
+  letter-spacing: 0;
+}
+html:lang(ta) body {
+  font-family: var(--font-sans), var(--font-tamil);
+  letter-spacing: 0;
+}
+
+/* The serif display face (Marcellus) is Latin-only: give headings an Indic fallback too. */
+html:lang(hi) :is(h1, h2, h3, .font-serif),
+html:lang(mr) :is(h1, h2, h3, .font-serif) {
+  font-family: var(--font-serif), var(--font-devanagari);
+}
+html:lang(gu) :is(h1, h2, h3, .font-serif) {
+  font-family: var(--font-serif), var(--font-gujarati);
+}
+html:lang(te) :is(h1, h2, h3, .font-serif) {
+  font-family: var(--font-serif), var(--font-telugu);
+}
+html:lang(ta) :is(h1, h2, h3, .font-serif) {
+  font-family: var(--font-serif), var(--font-tamil);
+}
+
+/* Inline snippets (aarti lyrics in a native script) can opt in regardless of UI language. */
+:lang(hi), :lang(mr) { --font-indic: var(--font-devanagari); }
+:lang(gu) { --font-indic: var(--font-gujarati); }
+:lang(te) { --font-indic: var(--font-telugu); }
+:lang(ta) { --font-indic: var(--font-tamil); }

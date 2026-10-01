@@ -1,0 +1,124 @@
+/* ================================================================
+   Accessibility layer — imported by main.tsx AFTER index.css.
+
+   <html> classes / variables set by features/a11y/store.ts:
+     --a11y-text-scale   number (0.9 – 1.5)
+     .a11y-scaled        text scale != 100%
+     .a11y-high-contrast stronger text/borders, underlined links, thicker focus ring
+     .a11y-reduce-motion no animation/transition (also honoured via prefers-reduced-motion)
+     .a11y-dim           low-light devotion mode: warm dark palette
+
+   Focus-visible defaults (documented contract for every interactive element):
+     - every focusable control shows a 3px saffron ring (2px offset) on :focus-visible only;
+     - components that draw their own ring (Button uses focus-visible:ring-2) keep it: the
+       default lives in @layer base so component utilities win;
+     - never `outline: none` without a replacement.
+   ================================================================ */
+
+@layer base {
+  :where(a, button, input, select, textarea, summary, [role='button'], [role='switch'], [tabindex]):focus-visible {
+    outline: 3px solid var(--color-saffron-500);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  :where(main)[tabindex='-1']:focus {
+    outline: none; /* programmatic focus target of the skip link */
+  }
+}
+
+/* Text scale: rem-based sizes follow <html>, the body's px size follows the variable. */
+html.a11y-scaled {
+  font-size: calc(100% * var(--a11y-text-scale, 1));
+}
+html.a11y-scaled body {
+  font-size: calc(15px * var(--a11y-text-scale, 1));
+}
+
+/* Skip link — visible only while focused. */
+.a11y-skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  transform: translateY(-200%);
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  background: var(--color-brand-500);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--shadow-lg);
+}
+.a11y-skip-link:focus {
+  transform: none;
+}
+
+/* ---------------------------------------------------------------- high contrast */
+html.a11y-high-contrast {
+  --color-ink: #000000;
+  --color-muted: #3a2f28;
+  --color-line: #6b5a4a;
+  --color-bg: #ffffff;
+  --color-card: #ffffff;
+  --color-tint: #f4ede0;
+  --color-brand-500: #7f150f;
+  --color-brand-600: #5f0f0a;
+}
+html.a11y-high-contrast a:not([class*='bg-']):not(.a11y-skip-link) {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+html.a11y-high-contrast :where(a, button, input, select, textarea):focus-visible {
+  outline-width: 4px;
+  outline-color: #000;
+  box-shadow: 0 0 0 2px #fff;
+}
+html.a11y-high-contrast :where(input, select, textarea) {
+  border-color: var(--color-ink);
+}
+
+/* ---------------------------------------------------------------- low-light mode */
+html.a11y-dim {
+  color-scheme: dark;
+  --color-ink: #efe2cf;
+  --color-muted: #b9a893;
+  --color-line: #3b2d22;
+  --color-bg: #17110d;
+  --color-card: #211813;
+  --color-tint: #2a1f18;
+  --color-rail: #1d1511;
+  --color-brand-50: #2f1a14;
+  --color-brand-100: #3d221a;
+  --color-brand-200: #5a2e22;
+  --color-brand-700: #f0b9a4;
+  --color-brand-800: #f6cbb9;
+  --color-brand-900: #fbe0d3;
+  --color-saffron-100: #3a2a12;
+  --color-saffron-200: #55401a;
+  --color-gold-600: #d7bc78;
+  --color-leaf-600: #7fc4a4;
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+html.a11y-dim img:not([src$='.svg']) {
+  filter: brightness(0.85) sepia(0.12);
+}
+
+/* ---------------------------------------------------------------- reduce motion */
+html.a11y-reduce-motion *,
+html.a11y-reduce-motion *::before,
+html.a11y-reduce-motion *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
